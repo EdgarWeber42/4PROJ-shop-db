@@ -8,5 +8,7 @@ docker run --rm --name pg-docker -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=de
 sleep 1
 echo "[INFO] initiating schema"
 docker exec pg-docker psql -U postgres -d dev -f /var/lib/postgresql/shared-volume/shop-schema.sql
+echo "[INFO] inserting products"
+docker exec pg-docker psql -U postgres -d dev -f /var/lib/postgresql/shared-volume/products.sql
 echo "Done."
 # docker stop $(docker ps -aq)

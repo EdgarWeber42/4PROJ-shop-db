@@ -23,8 +23,10 @@ create table products (
     id bigserial primary key,
     ean varchar(13) not null unique,
     name varchar(50),
-    category varchar(20),
-    price numeric
+    price numeric,
+    department varchar(20),
+    family varchar(20),
+    subfamily varchar(20)
 );
 
 alter table event_items add foreign key (event_id) references events(id);
