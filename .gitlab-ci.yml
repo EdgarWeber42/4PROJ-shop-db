@@ -15,3 +15,5 @@ build:
     - docker build -t $CI_REGISTRY_IMAGE:latest .
     - docker tag $CI_REGISTRY_IMAGE:latest rg.saaas.io/4pjt/$CI_REGISTRY_IMAGE:latest
     - docker push rg.saaas.io/4pjt/$CI_REGISTRY_IMAGE:latest
+    - docker tag $CI_REGISTRY_IMAGE:latest rg.saaas.io/4pjt/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker push rg.saaas.io/4pjt/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
