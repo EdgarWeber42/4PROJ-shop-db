@@ -22,11 +22,12 @@ create table items (
 create table products (
     id bigserial primary key,
     ean varchar(13) not null unique,
-    name varchar(50),
+    name varchar(130),
     price numeric,
     department varchar(20),
-    family varchar(20),
-    subfamily varchar(20)
+    family varchar(30),
+    subfamily varchar(30),
+    image_prefix varchar(25)
 );
 
 alter table event_items add foreign key (event_id) references events(id);
