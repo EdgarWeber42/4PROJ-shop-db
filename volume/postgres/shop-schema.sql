@@ -47,7 +47,8 @@ create table products (
 create table items (
     id bigserial primary key,
     ean varchar(13) references products(ean),
-    epc varchar(24) not null unique
+    epc varchar(24) not null unique,
+    state varchar(10)
 );
 
 create table event_items (
