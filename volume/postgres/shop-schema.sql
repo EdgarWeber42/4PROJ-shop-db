@@ -1,17 +1,18 @@
 -- 4PROJ Shop database DDL (Postgres)
 
 create table stores (
-    id bigserial primary key,
-    name varchar(30),
-    address varchar(50),
+    store_id bigserial primary key,
+    name varchar(60),
+    address varchar(60),
     phone_number varchar(10)
 );
 
-create type device_type as enum ('PDA', 'register', 'fence');
+create type device_type as enum ('PDA', 'register', 'fence', 'beacon');
 create table devices (
     id bigserial primary key,
+    name varchar(20),
     type device_type,
-    store_id bigserial references stores(id)
+    store_id bigserial
 );
 
 create table customers (
@@ -56,17 +57,19 @@ create table event_items (
 );
 
 create table shelf (
-    id bigserial primary key,
-    store_id bigserial references stores(id),
+    shelf_id bigserial primary key,
+    store_id bigserial,
     capacity integer,
     type varchar(15)
 );
 
 create table shelf_items (
     id bigserial primary key,
-    shelf_id bigserial references shelf(id),
+    shelf_id bigserial references shelf(shelf_id),
     item_epc varchar(24) references items(epc)
 );
 
+alter table stores add foreign key (store_id) references stores(store_id);
+alter table shelf add foreign key (store_id) references stores(store_id);
 -- alter table event_items add foreign key (event_id) references events(id);
 -- alter table items add foreign key (ean) references products(ean)

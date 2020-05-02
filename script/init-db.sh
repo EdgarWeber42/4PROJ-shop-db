@@ -13,4 +13,4 @@ echo "Creating schema..."
 psql -d ${POSTGRES_DB} -a -U${POSTGRES_USER} -f /data/shop-schema.sql
 
 echo "Populating database..."
-psql -d ${POSTGRES_DB} -a  -U${POSTGRES_USER} -f /data/products.sql
+psql -d ${POSTGRES_DB} -a  -U${POSTGRES_USER} -f /data/data.sql
