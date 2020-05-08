@@ -16,11 +16,27 @@ create table devices (
 );
 
 create table customers (
-    id bigserial primary key,
+    id serial primary key,
     firstName varchar(30),
     lastName varchar(30),
     address varchar(50),
     phone_number varchar(10)
+);
+
+create table staff (
+    id bigserial primary key,
+    firstName varchar(30),
+    lastName varchar(30),
+    position varchar(30),
+    store_id bigserial references stores(store_id)
+);
+
+create table users (
+    id serial primary key,
+    userName varchar(30),
+    passWord varchar(60),
+    role varchar(20),
+    customer_id serial references customers(id)
 );
 
 create type event_type as enum ('sale', 'refund', 'alarm', 'reception');
@@ -72,5 +88,7 @@ create table shelf_items (
 
 alter table stores add foreign key (store_id) references stores(store_id);
 alter table shelf add foreign key (store_id) references stores(store_id);
+alter table users alter column customer_id drop not null;
+
 -- alter table event_items add foreign key (event_id) references events(id);
 -- alter table items add foreign key (ean) references products(ean)
