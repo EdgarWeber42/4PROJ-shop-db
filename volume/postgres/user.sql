@@ -1,3 +1,3 @@
-insert into users (userName, passWord, role, customer_id) values('test', '$2b$10$p14MeoF/zU/PqpX0Dnit2.RtQwXSvCsupDtvKGB3w11SWA6xi9zW.', 'customer', null);
-insert into users (userName, passWord, role, customer_id) values('foo', '$2b$10$ZwSoAts1o8OI5BsOO/JVDOhJhqBUEytFpAc8o7HncFLgC2ensdj42', 'customer', null);
-insert into users (userName, passWord, role, customer_id) values('admin', '$2y$10$SGdlf2FdFIRz.kzA5x9cQ.tkxf/z38jOfjw66J/hsztrwYKEAVIiu', 'staff', null);
+insert into users (userName, passWord, role, customer_id) values('test', '$2a$10$EB.6fdN22NgXzBRWMLkLgOvBvSWNUTrquk8L7raFv62CfXAuriAuy', 'customer', null);
+insert into users (userName, passWord, role, customer_id) values('foo', '$2a$10$dOEFXVJ.D6omeF.JshP5TOH8Lpydka8ngdcvIhLQk867kB82DPDLe', 'customer', null);
+insert into users (userName, passWord, role, customer_id) values('admin', '$2a$10$PZxs2FzmaA.oZWkgCSh.Ue.jfi8zYV25h5N6rizFPDHKWG72Px5UC', 'staff', null);
