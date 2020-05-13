@@ -7,11 +7,11 @@ create table stores (
     phone_number varchar(10)
 );
 
-create type device_type as enum ('PDA', 'register', 'fence', 'beacon');
+-- create type device_type as enum ('PDA', 'register', 'fence', 'beacon');
 create table devices (
     id bigserial primary key,
-    name varchar(20),
-    type device_type,
+    name varchar(50),
+    type varchar(20),
     store_id bigserial
 );
 
