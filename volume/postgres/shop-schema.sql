@@ -45,11 +45,13 @@ create table users (
 -- create type event_type as enum ('sale', 'refund', 'alarm', 'reception');
 create table events (
     id bigserial primary key,
+    type varchar(20),
+    store_id bigserial references stores(store_id),
     device_id bigserial references devices(id),
     customer_id bigserial references customers(id),
-    type varchar(20),
-    date date,
-    amount numeric
+    staff_id bigserial references staff(id),
+    amount numeric,
+    timestamp timestamp
 );
 
 create table products (
@@ -72,7 +74,7 @@ create table items (
 
 create table event_items (
     id bigserial primary key,
-    event_id bigserial references events(id),
+    event_id bigserial,
     item_epc varchar(24) references items(epc)
 );
 
@@ -91,7 +93,10 @@ create table shelf_items (
 
 alter table stores add foreign key (store_id) references stores(store_id);
 alter table shelf add foreign key (store_id) references stores(store_id);
+alter table event_items add foreign key (event_id) references events(id);
 alter table users alter column customer_id drop not null, alter column staff_id drop not null;
+alter table stores alter column store_id drop not null;
+alter table events alter column customer_id drop not null, alter column staff_id drop not null;
 
 -- alter table event_items add foreign key (event_id) references events(id);
 -- alter table items add foreign key (ean) references products(ean)
