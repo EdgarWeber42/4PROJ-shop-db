@@ -1,32 +1,37 @@
 drop table stocks;
 
 create table stocks as
-    select p.ean, count (*) as stock
+    select p.ean, i.store_id, count (*) as stock
     from items i 
     inner join products p on p.ean = i.ean 
-    where i.state in ('STOCK', 'SALES AREA') 
-    group by p.ean;
+    where i.state in ('STOCK', 'SALESAREA') 
+    group by p.ean, i.store_id;
 
 alter table stocks add foreign key (ean) references products(ean);
 
---Trigger d'update des stock si on update le state d'un item
+-- Trigger d'update des stock si on update le state d'un item
+-- Caveat : si un items est inserré dans sur un shop qui ne contient pas encore cette ean, ne crée pas la row
 
 create or replace function update_stock_item_state() returns trigger as $update_stock_item_state$
     declare
         this_updated_item_ean items.ean%TYPE;
+        this_updated_item_store_id items.store_id%TYPE;
         this_updated_product_new_stock integer;
     begin
         select into this_updated_item_ean new.ean;
+        select into this_updated_item_store_id new.store_id;
 
         select count(*)
           into this_updated_product_new_stock
           from items
-         where items.state in ('STOCK', 'SALES AREA')
-         and ean = this_updated_item_ean;
+         where items.state in ('STOCK', 'SALESAREA')
+         and ean = this_updated_item_ean
+         and store_id = this_updated_item_store_id;
 
         update stocks
            set stock=this_updated_product_new_stock
-         where ean=this_updated_item_ean;
+         where ean=this_updated_item_ean
+         and store_id=this_updated_item_store_id;
         return null;
     end;
 $update_stock_item_state$ language plpgsql;
@@ -45,11 +50,11 @@ create or replace function insert_stock_new_product() returns trigger as $insert
     begin
         select into this_new_ean new.ean;
 
-        insert into stocks (ean, stock)
+        insert into stocks (ean, stock, store_id)
         select  this_new_ean as ean,
                 (select count(*)
                 from items
-                where items.state in ('STOCK', 'SALES AREA')
+                where items.state in ('STOCK', 'SALESAREA')
                 and ean = this_new_ean
                 ) as ean;
         return null;

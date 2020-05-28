@@ -69,6 +69,7 @@ create table items (
     id bigserial primary key,
     ean varchar(13) references products(ean),
     epc varchar(24) not null unique,
+    store_id bigserial references stores(store_id),
     state varchar(10)
 );
 
