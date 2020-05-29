@@ -1,6 +1,13 @@
 drop table stocks;
 
-create table stocks as
+create table stocks (
+    id bigserial primary key,
+    ean varchar(13),
+    store_id bigserial references stores(store_id),
+    stock bigint
+);
+
+insert into stocks (ean, store_id, stock)
     select p.ean, i.store_id, count (*) as stock
     from items i 
     inner join products p on p.ean = i.ean 
