@@ -3,6 +3,7 @@
 create table stores (
     store_id bigserial primary key,
     name varchar(60),
+    type varchar(20),
     address varchar(60),
     phone_number varchar(10)
 );
