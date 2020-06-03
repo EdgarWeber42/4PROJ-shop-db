@@ -52,7 +52,7 @@ create table events (
     customer_id bigserial references customers(id),
     staff_id bigserial references staff(id),
     amount numeric,
-    timestamp timestamp
+    timestamp varchar(21)
 );
 
 create table products (
