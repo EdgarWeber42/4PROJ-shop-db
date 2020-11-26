@@ -8,7 +8,6 @@ create table stores (
     phone_number varchar(10)
 );
 
--- create type device_type as enum ('PDA', 'register', 'fence', 'beacon');
 create table devices (
     id bigserial primary key,
     name varchar(50),
@@ -92,6 +91,7 @@ create table shelf_items (
     shelf_id bigserial references shelf(shelf_id),
     item_epc varchar(24) references items(epc)
 );
+
 
 alter table stores add foreign key (store_id) references stores(store_id);
 alter table shelf add foreign key (store_id) references stores(store_id);
